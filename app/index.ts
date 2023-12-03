@@ -8,6 +8,7 @@ import express, {
 } from "express";
 
 import * as http from "http";
+import indexRouter from "../routes";
 
 const app: Application = express();
 const port = process.env.PORT || 3001;
@@ -33,6 +34,9 @@ module.exports = class Application {
   setConfig() {}
 
   setRoutes() {
+
+app.use(indexRouter)
+
     app.get("/", (req: Request, res: Response) => {
       res.send("Welcome to Express & TypeScript Server");
     });
