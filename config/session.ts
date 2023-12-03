@@ -1,12 +1,17 @@
-const mongoose = require('mongoose');
-//const session  = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+import mongoose from 'mongoose';
+import session, { SessionOptions } from 'express-session';
+import MongoStore from 'connect-mongo';
 
-module.exports = {
-        secret: 'amin-agha',
-        // secret : 'secretID',
-        resave : true,
-        saveUninitialized : true,
-        store : new MongoStore({ mongooseConnection : mongoose.connection }),
-        cookie: { secure: false }   // it's true on https
-}
+
+//todo : ghesmat store nabayad comment bashe, error midad felan commant kardam
+const sessionConfig: SessionOptions = {
+  secret: 'amin-agha',
+  resave: true,
+  saveUninitialized: true,
+//   store: new MongoStore({
+//     mongooseConnection: mongoose.connection,
+//   }),
+  cookie: { secure: false }, // it's true on https
+};
+
+export default sessionConfig;

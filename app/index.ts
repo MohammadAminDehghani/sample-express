@@ -8,6 +8,9 @@ import express, {
 } from "express";
 
 import * as http from "http";
+import mongoose from "mongoose";
+import config from "../config";
+
 import indexRouter from "../routes";
 
 const app: Application = express();
@@ -29,13 +32,26 @@ module.exports = class Application {
     });
   }
 
-  configDatabase() {}
+  configDatabase() {
+    //global.AbortControllerPromise = mongoose.Promise;
+    console.log(config.databaseConfig.url);
+    mongoose.connect(config.databaseConfig.url);
+
+    // Listen for the 'connected' event
+    mongoose.connection.on("connected", () => {
+      console.log("Connected to the database");
+    });
+
+    // Listen for the 'error' event
+    mongoose.connection.on("error", (err) => {
+      console.error("Failed to connect to the database:", err);
+    });
+  }
 
   setConfig() {}
 
   setRoutes() {
-
-app.use(indexRouter)
+    app.use(indexRouter);
 
     app.get("/", (req: Request, res: Response) => {
       res.send("Welcome to Express & TypeScript Server");
