@@ -1,0 +1,71 @@
+
+
+//source: 
+https://dev.to/cristain/how-to-set-up-typescript-with-nodejs-and-express-2023-gf
+
+1. Create initial folder and package.json
+command:
+npm init --yes
+
+2. Installing TypeScript & other dependencies
+
+command:
+npm install express mongoose cors mongodb dotenv
+
+// comment for explanation
+CORS: It is a package that helps us enable cross-origin requests with various options.
+Express: It is basically a back-end web application framework for Node.js designed
+for building various web applications and APIs.
+
+
+npm install  -D typescript ts-node-dev @types/express @types/cors
+
+3. Generating tsconfig.json
+command: 
+npx tsc --init
+
+//Set the rootDir and outDir as src and dist folder
+{
+  "compilerOptions": {
+    "outDir": "./dist"
+
+    // other options remain same
+  }
+}
+
+
+4. Create an Express server with a .ts extension
+//Create a file name index.ts open it
+
+// file:
+
+import express, { Express, Request, Response , Application } from 'express';
+import dotenv from 'dotenv';
+
+//For env File 
+dotenv.config();
+
+const app: Application = express();
+const port = process.env.PORT || 8000;
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Welcome to Express & TypeScript Server');
+});
+
+app.listen(port, () => {
+  console.log(`Server is Fire at http://localhost:${port}`);
+});
+
+5. Watching file changes and build directory
+//After installing these dev dependencies, update the scripts in the package.json file:
+
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon index.ts"
+  }
+
+
+  6. Run The Code
+  command:
+  npm run dev 
