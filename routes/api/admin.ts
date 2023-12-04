@@ -1,25 +1,46 @@
-import express, { Router } from 'express';
+import express, { Router } from "express";
+import User from "./../../app/models/user";
+
 const router: Router = express.Router();
 
 //controllers
-//import articleController from 'app/http/controllers/admin/articleController';
+import {
+  index as indexUserController,
+  store as storeUserController,
+  show as showUserController,
+  edit as editUserController,
+  update as updateUserController,
+  destroy as destroyUserController,
+} from "./../../app/http/controllers/api/admin/userController";
+
+import {
+    index as indexArticleController,
+    store as storeArticleController,
+    show as showArticleController,
+    edit as editArticleController,
+    update as updateArticleController,
+    destroy as destroyArticleController,
+  } from "./../../app/http/controllers/api/admin/articleController";
 
 //validators
 //import articleValidator from 'app/http/validators/admin/articleValidator';
 
+/////////////////////    user routes   //////////////////////////////////
+router.get("/users", indexUserController);
+// router.get('/users/create', index);
+router.post("/users", storeUserController);
+router.get("/users/:id", showUserController);
+router.get("/users/:id/edit", editUserController);
+router.put("/users/:id", updateUserController);
+router.delete("/users/:id", destroyUserController);
+
 /////////////////////    article routes   //////////////////////////////////
-router.get('/articles', (req,res)=>{
-    res.send("yes this is Api article routes");
-});
-// router.get('/articles', articleController.index);
-// router.get('/article/:id/show', articleController.show);
-
-// router.get('/article/create', articleController.create);
-// router.post('/article', articleValidator.handle(), articleController.post);
-
-// router.get('/article/:id/edit', articleController.edit);
-// router.post('/article/:id', articleValidator.handle(), articleController.update);
-
-// router.post('/article/:id', articleController.delete);
+router.get("/articles", indexArticleController);
+// router.get('/users/create', index);
+router.post("/articles", storeArticleController);
+router.get("/articles/:id", showArticleController);
+router.get("/articles/:id/edit", editArticleController);
+router.put("/articles/:id", updateArticleController);
+router.delete("/articles/:id", destroyArticleController);
 
 export default router;
