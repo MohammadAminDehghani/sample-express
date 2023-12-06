@@ -1,19 +1,36 @@
 import { Request, Response } from 'express';
 import Article, { IArticle } from '../../../../models/article';
+import User from '../../../../models/user';
+import { faker } from '@faker-js/faker';
 
 export const index = async (req: Request, res: Response): Promise<void> => {
+  
   try {
-    const articles = await Article.find();
+    
+    //faker
+    // const article = new Article({
+    //   user: undefined,
+    //   title: faker.string.uuid(),
+    //   slug: faker.string.alpha(),
+    //   body: faker.string.alpha(200),
+    //   image: {},
+    //   tags: 'image',
+    //   viewCount: faker.number.int({min:0, max: 1000}),
+    //   commentCount: faker.number.int({min:0, max: 1000}),
+    //   categories: [],
+    // });
+    // await article.save();
+  
+    const articles = await Article.find({});
+
     res.json(articles);
+    
+    
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
+    console.log(error);
   }
 };
-
-// export const create = (req: Request, res: Response): void => {
-//   // Render the create article form
-//   res.render('articles.create');
-// };
 
 export const store = async (req: Request, res: Response): Promise<void> => {
   try {

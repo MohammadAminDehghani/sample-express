@@ -10,6 +10,7 @@ import express, {
 import * as http from "http";
 import mongoose from "mongoose";
 import config from "../config";
+import cors from 'cors';
 
 import indexRouter from "../routes";
 
@@ -25,6 +26,15 @@ module.exports = class Application {
   }
 
   configServer() {
+
+
+    app.use(
+      cors({
+        origin: 'http://localhost:3000', // Replace with the origin of your front-end application
+        credentials: true, // Allow credentials (cookies) to be sent
+      })
+    );
+
     const server = http.createServer(app);
 
     server.listen(port, () => {
@@ -51,7 +61,11 @@ module.exports = class Application {
   setConfig() {}
 
   setRoutes() {
+
+
+    // app.use(cors());
     app.use(indexRouter);
+    
 
     app.get("/", (req: Request, res: Response) => {
       res.send("Welcome to Express & TypeScript Server");

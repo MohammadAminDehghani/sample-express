@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-export interface IArticle extends Document {
-  user: Schema.Types.ObjectId;
+export interface IArticle {
+  user?: Schema.Types.ObjectId | undefined;
   title: string;
   slug: string;
   body: string;
@@ -11,8 +11,8 @@ export interface IArticle extends Document {
   viewCount: number;
   commentCount: number;
   categories: Schema.Types.ObjectId[];
-  path(): string;
-  inc(field: string, num?: number): Promise<void>;
+  // path(): string | undefined;
+  // inc(field: string, num?: number): Promise<void> | undefined;
 }
 
 const ArticleSchema: Schema<IArticle> = new Schema<IArticle>(
