@@ -31,8 +31,8 @@ router.get("/users", indexUserController);
 router.post("/users", storeUserController);
 router.get("/users/:id", showUserController);
 router.get("/users/:id/edit", editUserController);
-router.put("/users/:id", updateUserController);
-router.delete("/users/:id", destroyUserController);
+router.post("/users/:id/update", updateUserController);
+router.delete("/users/:id/delete", destroyUserController);
 
 /////////////////////    article routes   //////////////////////////////////
 router.get("/articles", indexArticleController);
@@ -40,7 +40,7 @@ router.get("/articles", indexArticleController);
 router.post("/articles", storeArticleController);
 router.get("/articles/:id", showArticleController);
 router.get("/articles/:id/edit", editArticleController);
-router.put("/articles/:id", updateArticleController);
-router.delete("/articles/:id", destroyArticleController);
+router.post("/articles/:id/update", updateArticleController);
+router.delete("/articles/:id/delete", destroyArticleController);
 
 export default router;

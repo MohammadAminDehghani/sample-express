@@ -64,6 +64,9 @@ module.exports = class Application {
 
 
     // app.use(cors());
+    app.use(express.json()); // Parse JSON-encoded bodies
+    app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
     app.use(indexRouter);
     
 

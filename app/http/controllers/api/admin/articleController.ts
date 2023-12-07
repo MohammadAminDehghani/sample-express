@@ -33,15 +33,24 @@ export const index = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const store = async (req: Request, res: Response): Promise<void> => {
+
   try {
     // Handle article creation logic here
     // Retrieve data from the request body and create a new article
-    const articleData: Partial<IArticle> = req.body;
+
+    // todo : delete this line after authorization and get logged in user
+    const user = await User.findOne({ name : 'amin agha'});
+
+    const articleData: Partial<IArticle> = {
+      ...req.body,
+      user : user?.id
+    };
     const newArticle = new Article(articleData);
     await newArticle.save();
     res.json(newArticle);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
+    console.log(error);
   }
 };
 
@@ -96,6 +105,8 @@ export const update = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const destroy = async (req: Request, res: Response): Promise<void> => {
+
+
   try {
     const { id } = req.params;
     const deletedArticle = await Article.findByIdAndDelete(id);
@@ -107,6 +118,8 @@ export const destroy = async (req: Request, res: Response): Promise<void> => {
     
     res.json({ message: 'Article deleted successfully' });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Internal server error' });
+    
   }
 };
