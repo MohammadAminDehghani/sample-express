@@ -81,17 +81,24 @@ export const edit = async (req: Request, res: Response): Promise<void> => {
     }
     
     // Render the edit article form with the article data
-    res.render('articles.edit', { article });
+    res.json(article);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
 export const update = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const articleData: Partial<IArticle> = req.body;
+
+  console.log('id',id)
+  console.log('req.body',req.body)
+  // todo : delete this line after authorization and get logged in user
+  const user = await User.findOne({ name : 'amin agha'});
+  
   try {
-    const { id } = req.params;
-    const articleData: Partial<IArticle> = req.body;
-    const updatedArticle = await Article.findByIdAndUpdate(id, articleData, { new: true });
+
+    const updatedArticle = await Article.findByIdAndUpdate(id, {...articleData, user} , { new: true });
     
     if (!updatedArticle) {
       res.status(404).json({ error: 'Article not found' });
@@ -101,6 +108,7 @@ export const update = async (req: Request, res: Response): Promise<void> => {
     res.json(updatedArticle);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
+    console.log(error);
   }
 };
 

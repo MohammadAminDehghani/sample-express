@@ -22,6 +22,24 @@ import {
     destroy as destroyArticleController,
   } from "./../../app/http/controllers/api/admin/articleController";
 
+  import {
+    index as indexCategoryController,
+    store as storeCategoryController,
+    show as showCategoryController,
+    edit as editCategoryController,
+    update as updateCategoryController,
+    destroy as destroyCategoryController,
+  } from "./../../app/http/controllers/api/admin/categoryController";
+
+  import {
+    index as indexTagController,
+    store as storeTagController,
+    show as showTagController,
+    edit as editTagController,
+    update as updateTagController,
+    destroy as destroyTagController,
+  } from "./../../app/http/controllers/api/admin/tagController";
+
 //validators
 //import articleValidator from 'app/http/validators/admin/articleValidator';
 
@@ -36,11 +54,29 @@ router.delete("/users/:id/delete", destroyUserController);
 
 /////////////////////    article routes   //////////////////////////////////
 router.get("/articles", indexArticleController);
-// router.get('/users/create', index);
+// router.get('/articles/create', index);
 router.post("/articles", storeArticleController);
 router.get("/articles/:id", showArticleController);
 router.get("/articles/:id/edit", editArticleController);
 router.post("/articles/:id/update", updateArticleController);
 router.delete("/articles/:id/delete", destroyArticleController);
+
+/////////////////////    category routes   //////////////////////////////////
+router.get("/categories", indexCategoryController);
+// router.get('/categories/create', index);
+router.post("/categories", storeCategoryController);
+router.get("/categories/:id", showCategoryController);
+router.get("/categories/:id/edit", editCategoryController);
+router.post("/categories/:id/update", updateCategoryController);
+router.delete("/categories/:id/delete", destroyCategoryController);
+
+/////////////////////    tag routes   //////////////////////////////////
+router.get("/tags", indexTagController);
+// router.get('/tags/create', index);
+router.post("/tags", storeTagController);
+router.get("/tags/:id", showTagController);
+router.get("/tags/:id/edit", editTagController);
+router.post("/tags/:id/update", updateTagController);
+router.delete("/tags/:id/delete", destroyTagController);
 
 export default router;
