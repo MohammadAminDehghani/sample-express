@@ -2,7 +2,8 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 export interface ITag {
-  name: string;
+  name: string; 
+  description: string; 
 }
 
 const TagSchema: Schema<ITag> = new Schema<ITag>(
@@ -11,6 +12,11 @@ const TagSchema: Schema<ITag> = new Schema<ITag>(
       type: String,
       required: true,
       unique: true,
+    },
+    description: {
+      type: String,
+      default: null,
+      nullable: true,
     },
   },
   {

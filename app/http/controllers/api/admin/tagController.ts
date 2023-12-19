@@ -5,10 +5,10 @@ import { faker } from "@faker-js/faker";
 
 export const index = async (req: Request, res: Response): Promise<void> => {
   try {
-    const tag = new Tag({
-      name: faker.string.alphanumeric(10),
-    });
-    await tag.save();
+    // const tag = new Tag({
+    //   name: faker.string.alphanumeric(10),
+    // });
+    // await tag.save();
 
     const tags = await Tag.find({});
 
