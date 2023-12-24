@@ -38,6 +38,7 @@ import {
     edit as editTagController,
     update as updateTagController,
     destroy as destroyTagController,
+    searchTagsByString as searchTagController,
   } from "./../../app/http/controllers/api/admin/tagController";
 
 //validators
@@ -78,5 +79,6 @@ router.get("/tags/:id", showTagController);
 router.get("/tags/:id/edit", editTagController);
 router.post("/tags/:id/update", updateTagController);
 router.delete("/tags/:id/delete", destroyTagController);
+router.get("/tags/:query/search", searchTagController);
 
 export default router;

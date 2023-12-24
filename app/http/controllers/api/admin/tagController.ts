@@ -11,7 +11,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     // await tag.save();
 
     const tags = await Tag.find({});
-
+    //console.log(tags)
     res.json(tags);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -20,6 +20,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const store = async (req: Request, res: Response): Promise<void> => {
+  
   try {
     // Handle tag creation logic here
     // Retrieve data from the request body and create a new tag
@@ -106,5 +107,27 @@ export const destroy = async (req: Request, res: Response): Promise<void> => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+export const searchTagsByString = async (req: Request, res: Response): Promise<void> => {
+  const searchString: string = req.params.query;
+  try {
+    //let tags = [];
+    const tags = await Tag.find({ name: { $regex: searchString, $options: 'i' } });
+
+    // if (searchString) {
+    //   tags = await Tag.find({ name: { $regex: searchString, $options: 'i' } });
+    // }
+  
+    // if (tags.length === 0) {
+    //   tags = await Tag.find();
+    // }
+
+    res.json(tags);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
   }
 };

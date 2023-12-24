@@ -33,7 +33,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const store = async (req: Request, res: Response): Promise<void> => {
-
+  console.log(req.body)
   try {
     // Handle article creation logic here
     // Retrieve data from the request body and create a new article

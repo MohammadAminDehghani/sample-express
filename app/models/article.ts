@@ -7,10 +7,10 @@ export interface IArticle {
   slug: string;
   body: string;
   image: object;
-  tags: string | null;
+  tags: Schema.Types.ObjectId[] | null;
   viewCount: number;
   commentCount: number;
-  categories: Schema.Types.ObjectId[];
+  category: Schema.Types.ObjectId | null;
   // path(): string | undefined;
   // inc(field: string, num?: number): Promise<void> | undefined;
 }
@@ -21,11 +21,11 @@ const ArticleSchema: Schema<IArticle> = new Schema<IArticle>(
     title: { type: String, required: true },
     slug: { type: String, default: '' },
     body: { type: String, required: true },
-    image: { type: Object, required: true },
-    tags: { type: String, default: null },
+    image: { type: Object, nullable:true, required: false },
+    tags: { type: [Schema.Types.ObjectId], ref: 'Tag', default: null },
     viewCount: { type: Number, default: 0 },
     commentCount: { type: Number, default: 0 },
-    categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+    category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   },
   {
     timestamps: true,
@@ -41,9 +41,6 @@ ArticleSchema.virtual('comments', {
   foreignField: 'article',
 });
 
-ArticleSchema.methods.path = function (): string {
-  return `/article/${this.id}`;
-};
 
 ArticleSchema.methods.inc = async function (field: string, num = 1): Promise<void> {
   this[field] += num;
