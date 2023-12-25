@@ -25,7 +25,7 @@ const ArticleSchema: Schema<IArticle> = new Schema<IArticle>(
     tags: { type: [Schema.Types.ObjectId], ref: 'Tag', default: null },
     viewCount: { type: Number, default: 0 },
     commentCount: { type: Number, default: 0 },
-    category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+    category: { type: Schema.Types.ObjectId, ref: 'Category' },
   },
   {
     timestamps: true,
@@ -40,6 +40,8 @@ ArticleSchema.virtual('comments', {
   localField: '_id',
   foreignField: 'article',
 });
+
+
 
 
 ArticleSchema.methods.inc = async function (field: string, num = 1): Promise<void> {

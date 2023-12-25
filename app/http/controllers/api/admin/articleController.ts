@@ -73,7 +73,7 @@ export const show = async (req: Request, res: Response): Promise<void> => {
 export const edit = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const article = await Article.findById(id);
+    const article = await Article.findById(id).populate('tags', ['_id','name']);
     
     if (!article) {
       res.status(404).json({ error: 'Article not found' });
