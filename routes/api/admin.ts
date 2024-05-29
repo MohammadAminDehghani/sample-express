@@ -3,6 +3,10 @@ import User from "./../../app/models/user";
 
 const router: Router = express.Router();
 
+//middlewares
+import AuthMiddleware from "../middleware/api/auth";
+
+
 //controllers
 import {
   index as indexUserController,
@@ -58,7 +62,7 @@ router.get("/articles", indexArticleController);
 // router.get('/articles/create', index);
 router.post("/articles", storeArticleController);
 router.get("/articles/:id", showArticleController);
-router.get("/articles/:id/edit", editArticleController);
+router.get("/articles/:id/edit", AuthMiddleware.handle , editArticleController);
 router.post("/articles/:id/update", updateArticleController);
 router.delete("/articles/:id/delete", destroyArticleController);
 

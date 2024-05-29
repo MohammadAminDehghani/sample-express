@@ -27,7 +27,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     
     
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    //res.status(500).json({ error: 'Internal server error' });
     console.log(error);
   }
 };
