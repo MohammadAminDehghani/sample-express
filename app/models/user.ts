@@ -3,23 +3,24 @@ import bcrypt from "bcrypt";
 //import uniqueString from "unique-string";
 import mongoosePaginate from "mongoose-paginate-v2";
 
-interface IUser extends Document {
+export interface IUser extends Document {
   admin: boolean;
   name: string;
   email?: string;
   password: string;
   rememberToken: string;
-//   roles: Schema.Types.ObjectId[];
-//   payCash: Schema.Types.ObjectId[];
-//   comparePassword(candidatePassword: string): Promise<boolean>;
-//   setRememberToken(res: any): void;
-//   hasRoles(roles: any[]): boolean;
-//   courses: any[];
-//   articles: any[];
-//   comments: any[];
-//   isVip(): boolean;
-//   payCashCheck(courseId: Schema.Types.ObjectId): boolean;
 }
+
+  //   roles: Schema.Types.ObjectId[];
+  //   payCash: Schema.Types.ObjectId[];
+  //   comparePassword(candidatePassword: string): Promise<boolean>;
+  //   setRememberToken(res: any): void;
+  //   hasRoles(roles: any[]): boolean;
+  //   courses: any[];
+  //   articles: any[];
+  //   comments: any[];
+  //   isVip(): boolean;
+  //   payCashCheck(courseId: Schema.Types.ObjectId): boolean;
 
 const userSchema: Schema<IUser> = new Schema(
   {
@@ -65,11 +66,15 @@ userSchema.methods.comparePassword = async function (
 };
 
 userSchema.methods.setRememberToken = async function (res: any): Promise<void> {
-    const uniqueStringModule = await import('unique-string');
-    const token = uniqueStringModule.default();
-    res.cookie('remember_token', token, { maxAge: 1000 * 60, httpOnly: true, signed: true });
-    this.updateOne({ rememberToken: token });
-  };
+  const uniqueStringModule = await import("unique-string");
+  const token = uniqueStringModule.default();
+  res.cookie("remember_token", token, {
+    maxAge: 1000 * 60,
+    httpOnly: true,
+    signed: true,
+  });
+  this.updateOne({ rememberToken: token });
+};
 
 userSchema.methods.hasRoles = function (roles: any[]): boolean {
   let result = roles.filter((role: any) => {
